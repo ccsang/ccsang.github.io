@@ -14,10 +14,10 @@
     var result   = callback + &quot;({ ret : &apos;wakaka&apos; })&quot;
     res.send(result.ret)
 }
-</code></pre><p>上面加载完第一个客户端脚本时，定义了一个函数叫wakaka。</p>
-<p>加载完第二个脚本时，向 <code>http://test.com</code> 发送请求并把wakaka当做callback参数传给服务端。</p>
-<p>这时候服务器读取callback参数的值,发现是wakaka，就用wakaka把json数据包裹起来凭借成字符串返回给客户端，也就是wakaka({ ret : ‘wakaka’})这样。</p>
-<p>第二个脚本收到服务器的响应，由于是在script标签，就把返回的结果当做是javascript执行，也就是执行 wakaka({ret : ‘wakaka’}),第一个脚本已经定义好了wakaka的函数，执行后就会在终端打印 wakaka。</p>
+</code></pre><p>上面加载完第一个客户端脚本时，定义了一个函数叫<code>wakaka</code>。</p>
+<p>加载完第二个脚本时，向 <code>http://test.com</code> 发送请求并把<code>wakaka</code>当做callback参数传给服务端。</p>
+<p>这时候服务器读取callback参数的值,发现是<code>wakaka</code>，就用<code>wakaka</code>把json数据包裹起来凭借成字符串返回给客户端，也就是<code>wakaka({ ret : &#39;wakaka&#39;})</code>这样。</p>
+<p>第二个脚本收到服务器的响应，由于是在script标签，就把返回的结果当做是javascript执行，也就是执行 <code>wakaka({ret : &#39;wakaka&#39;})</code>,第一个脚本已经定义好了<code>wakaka</code>的函数，执行后就会在终端打印 <code>wakaka</code>。</p>
 <h2 id="jquery中jsonp的应用"><a href="#jquery中jsonp的应用" class="headerlink" title="jquery中jsonp的应用"></a>jquery中jsonp的应用</h2><p>要在jquery中使用jsonp很简单，如下所示：</p>
 <pre><code>$.ajax({
     url : &apos;http://test.com&apos;,
