@@ -1288,8 +1288,10 @@ pre code, pre tt {
 pre > code {
   margin: 0;
   padding: 0;
-  white-space: pre; }
+  white-space: pre;
+  background: transparent;
+  border: none; }
 
 code, tt {
-  font-family: Consolas, "Liberation Mono", Courier, monospace;
-  font-size: 12px; }
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace; }
