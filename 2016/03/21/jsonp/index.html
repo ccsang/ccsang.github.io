@@ -4,12 +4,13 @@
 <p><a href="https://developer.mozilla.org/en-US/docs/Same-origin_policy_for_file:_URIs" target="_blank" rel="external">Same-origin policy for file: URIs</a></p>
 <p><a href="https://www.w3.org/Security/wiki/Same_Origin_Policy" target="_blank" rel="external">Same Origin Policy</a></p>
 <h2 id="jsonp的实现方式"><a href="#jsonp的实现方式" class="headerlink" title="jsonp的实现方式"></a>jsonp的实现方式</h2><h3 id="client-side"><a href="#client-side" class="headerlink" title="client-side"></a>client-side</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">wakaka</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(data)</span><br><span class="line">	&#125;</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://test.com?callback=wakakka"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="server-side"><a href="#server-side" class="headerlink" title="server-side"></a>server-side</h3><pre><code>function test(req, res) {
-    var callback = req.query.callback 
-    var result   = callback + &quot;({ ret : &apos;wakaka&apos; })&quot;
+<h3 id="server-side"><a href="#server-side" class="headerlink" title="server-side"></a>server-side</h3><pre><code class="js"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">req, res</span>) </span>{
+    <span class="keyword">var</span> callback = req.query.callback 
+    <span class="keyword">var</span> result   = callback + <span class="string">"({ ret : 'wakaka' })"</span>
     res.send(result.ret)
 }
-</code></pre><p>上面加载完第一个客户端脚本时，定义了一个函数叫<code>wakaka</code>。</p>
+</code></pre>
+<p>上面加载完第一个客户端脚本时，定义了一个函数叫<code>wakaka</code>。</p>
 <p>加载完第二个脚本时，向 <code>http://test.com</code> 发送请求并把<code>wakaka</code>当做callback参数传给服务端。</p>
 <p>这时候服务器读取callback参数的值,发现是<code>wakaka</code>，就用<code>wakaka</code>把json数据包裹起来凭借成字符串返回给客户端，也就是<code>wakaka({ ret : &#39;wakaka&#39;})</code>这样。</p>
 <p>第二个脚本收到服务器的响应，由于是在script标签，就把返回的结果当做是javascript执行，也就是执行 <code>wakaka({ret : &#39;wakaka&#39;})</code>,第一个脚本已经定义好了<code>wakaka</code>的函数，执行后就会在终端打印 <code>wakaka</code>。</p>
